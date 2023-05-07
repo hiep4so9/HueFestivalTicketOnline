@@ -6,8 +6,10 @@ namespace HueFestivalTicketOnline.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-
+        public DataContext(DbContextOptions<DataContext> options) : base(options) 
+        {
+            
+        }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Artists_Invited> Artists_Inviteds { get; set; }
         public DbSet<Customer> Customers { get; set; }

@@ -23,7 +23,6 @@ namespace HueFestivalTicketOnline.Models
         public string? address { get; set; }
         [StringLength(50)]
         public string? name { get; set; }
-        [Phone]
         public string? phone { get; set; }
         public DateTime create_at { get; set; }
         public DateTime update_at { get; set; }

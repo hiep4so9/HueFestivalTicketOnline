@@ -14,6 +14,7 @@ namespace HueFestivalTicketOnline.Models
         public string? newsContent { get; set; }
         public DateTime create_at { get; set; }
         public DateTime update_at { get; set; }
+        public int eventID { get; set; }
 
         [ForeignKey("eventID")]
         public Event? Event { get; set; }

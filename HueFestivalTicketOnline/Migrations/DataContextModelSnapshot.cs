@@ -101,7 +101,7 @@ namespace HueFestivalTicketOnline.Migrations
                     b.Property<string>("eventName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("eventTypeID")
+                    b.Property<int>("eventTypeID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("update_at")
@@ -229,7 +229,7 @@ namespace HueFestivalTicketOnline.Migrations
                     b.Property<DateTime>("create_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("eventID")
+                    b.Property<int>("eventID")
                         .HasColumnType("int");
 
                     b.Property<string>("newName")
@@ -318,13 +318,13 @@ namespace HueFestivalTicketOnline.Migrations
                     b.Property<DateTime>("create_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("customerID")
+                    b.Property<int>("customerID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("eventID")
+                    b.Property<int>("eventID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("locationID")
+                    b.Property<int>("locationID")
                         .HasColumnType("int");
 
                     b.Property<int>("price")
@@ -336,13 +336,13 @@ namespace HueFestivalTicketOnline.Migrations
                     b.Property<string>("ticketName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ticketTypeID")
+                    b.Property<int>("ticketTypeID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("update_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("userID")
+                    b.Property<int>("userID")
                         .HasColumnType("int");
 
                     b.HasKey("ticketID");
@@ -371,7 +371,7 @@ namespace HueFestivalTicketOnline.Migrations
                     b.Property<DateTime>("create_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ticketID")
+                    b.Property<int>("ticketID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("update_at")
@@ -489,7 +489,9 @@ namespace HueFestivalTicketOnline.Migrations
                 {
                     b.HasOne("HueFestivalTicketOnline.Models.EventType", "EventType")
                         .WithMany()
-                        .HasForeignKey("eventTypeID");
+                        .HasForeignKey("eventTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventType");
                 });
@@ -536,7 +538,9 @@ namespace HueFestivalTicketOnline.Migrations
                 {
                     b.HasOne("HueFestivalTicketOnline.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("eventID");
+                        .HasForeignKey("eventID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Event");
                 });
@@ -564,23 +568,33 @@ namespace HueFestivalTicketOnline.Migrations
                 {
                     b.HasOne("HueFestivalTicketOnline.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("customerID");
+                        .HasForeignKey("customerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HueFestivalTicketOnline.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("eventID");
+                        .HasForeignKey("eventID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HueFestivalTicketOnline.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("locationID");
+                        .HasForeignKey("locationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HueFestivalTicketOnline.Models.TicketType", "TicketType")
                         .WithMany()
-                        .HasForeignKey("ticketTypeID");
+                        .HasForeignKey("ticketTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HueFestivalTicketOnline.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("userID");
+                        .HasForeignKey("userID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 
@@ -597,7 +611,9 @@ namespace HueFestivalTicketOnline.Migrations
                 {
                     b.HasOne("HueFestivalTicketOnline.Models.Ticket", "Ticket")
                         .WithMany()
-                        .HasForeignKey("ticketID");
+                        .HasForeignKey("ticketID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Ticket");
                 });

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/*using Microsoft.AspNetCore.Mvc;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -30,4 +30,4 @@ namespace HueFestivalTicketOnline.Controllers
             .ToArray();
         }
     }
-}
+}*/
