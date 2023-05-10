@@ -2,7 +2,7 @@
 
 namespace HueFestivalTicketOnline.Repositories.IRepository
 {
-    public interface ILocationRepostitory
+    public interface ILocationRepository
     {
         public Task<List<LocationDTO>> GetAllLocationsAsync();
         public Task<LocationDTO> GetLocationAsync(int id);

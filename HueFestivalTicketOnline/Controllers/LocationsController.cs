@@ -9,9 +9,9 @@ namespace HueFestivalTicketOnline.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly ILocationRepostitory _locationRepo;
+        private readonly ILocationRepository _locationRepo;
 
-        public LocationsController(ILocationRepostitory repo)
+        public LocationsController(ILocationRepository repo)
         {
             _locationRepo = repo;
         }

@@ -269,7 +269,5 @@ F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\runt
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\obj\Debug\net6.0\HueFestivalTicketOnline.RazorAssemblyInfo.cache
-F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\obj\Debug\net6.0\HueFestivalTicketOnline.RazorAssemblyInfo.cs
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\AutoMapper.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

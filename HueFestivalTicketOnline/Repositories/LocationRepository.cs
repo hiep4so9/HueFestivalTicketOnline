@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HueFestivalTicketOnline.Repositories
 {
-    public class LocationRepository : ILocationRepostitory
+    public class LocationRepository : ILocationRepository
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
