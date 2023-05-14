@@ -10,6 +10,7 @@ namespace HueFestivalTicketOnline.Helpers
         public ApplicationMapper() 
         {
             CreateMap<User,  UserDTO>().ReverseMap();
+            CreateMap<User, LoginDTO>().ReverseMap();
             CreateMap<EventType, EventTypeDTO>().ReverseMap();
             CreateMap<Event, EventDTO>().ReverseMap();
             CreateMap<Location, LocationDTO>().ReverseMap();
