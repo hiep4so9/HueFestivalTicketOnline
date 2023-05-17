@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -68,11 +72,63 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-/*        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] int id)
+        /*        [HttpDelete("{id}")]
+                public async Task<IActionResult> DeleteUser([FromRoute] int id)
+                {
+                    await _userRepo.DeleteUserAsync(id);
+                    return Ok();
+                }*/
+
+/*        [HttpPost("login")]
+        public async Task<IActionResult> Login(string username, string password)
         {
-            await _userRepo.DeleteUserAsync(id);
-            return Ok();
+            if (!await _userRepo.CheckUserName(username))
+            {
+                return NotFound("username not found");
+            }
+            var user = await _userRepo.GetUserByUsernamePasswordAsync(username, password);
+            if (user != null)
+            {
+                string token = CreateToken(user);
+
+                return Ok(new ApiResponse
+                {
+                    Message = "Login success",
+                    Data = token,
+                    Success = true,
+
+                });
+            }
+            else
+            {
+                return NotFound("password wrong");
+            }
+
+        }
+
+        private string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim>{
+            new Claim(ClaimTypes.Name, user.username)
+        };
+            var secretKey = "g4gvaPfOulR6bdI6KNL5ikcqbGc7Ouq4";
+
+            if (secretKey != null)
+            {
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var token = new JwtSecurityToken(
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(7),
+                    signingCredentials: creds
+                );
+
+                var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+                return jwt;
+            }
+            return null;*/
+/*
         }*/
     }
 }

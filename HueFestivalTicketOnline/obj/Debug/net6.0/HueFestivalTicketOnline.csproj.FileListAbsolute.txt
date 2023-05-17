@@ -276,3 +276,4 @@ F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Micr
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Scrutor.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\BouncyCastle.Crypto.dll

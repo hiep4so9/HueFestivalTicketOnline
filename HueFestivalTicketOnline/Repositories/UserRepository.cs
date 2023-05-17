@@ -3,6 +3,7 @@ using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace HueFestivalTicketOnline.Repositories
 {
@@ -56,5 +57,21 @@ namespace HueFestivalTicketOnline.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> CheckUserName(string userName)
+        {
+
+            var result = await _context.Users.CountAsync(x => x.username == userName) > 0;
+            Console.WriteLine(result);
+            return result;
+
+        }
+
+/*        public async Task<User> GetUserByUsernamePasswordAsync(string username, string password)
+        {
+            var user = await _context.Users.Where(x => x.username == username).FirstOrDefaultAsync();
+            var verify = BCrypt.Net.BCrypt.Verify(password, user.password);
+            return verify ? user : null;
+        }*/
     }
 }
