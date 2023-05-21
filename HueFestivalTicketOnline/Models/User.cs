@@ -24,9 +24,17 @@ namespace HueFestivalTicketOnline.Models
         [StringLength(50)]
         public string? name { get; set; }
         public string? phone { get; set; }
+
+        public string? Email { get; set; }
         public DateTime create_at { get; set; }
         public DateTime update_at { get; set; }
 
         public virtual ICollection<User_Role>? User_Roles { get; set; }
+
+        public string? VerificationToken { get; set; }
+        public DateTime? VerifyAt { get; set; }
+        public string PasswordResetToken { get; set; } = string.Empty;
+        public DateTime? ResetTokenExpries { get; set; }
+
     }
 }

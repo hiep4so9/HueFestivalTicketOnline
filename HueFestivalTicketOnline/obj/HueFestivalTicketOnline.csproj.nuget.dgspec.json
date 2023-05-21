@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[6.0.16, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -83,10 +87,6 @@
             "Swashbuckle.AspNetCore.Filters": {
               "target": "Package",
               "version": "[7.0.6, )"
-            },
-            "System.Security.Cryptography.OpenSsl": {
-              "target": "Package",
-              "version": "[5.0.0, )"
             }
           },
           "imports": [

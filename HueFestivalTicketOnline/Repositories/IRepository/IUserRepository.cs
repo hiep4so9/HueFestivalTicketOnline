@@ -9,8 +9,10 @@ namespace HueFestivalTicketOnline.Repositories.IRepository
         public Task<UserDTO> GetUserAsync(int id);
         public Task<int> AddUserAsync(UserDTO model);
         public Task UpdateUserAsync(int id, UserDTO model);
+        public Task<UserDTO> Login(string userName, string password);
         Task<bool> CheckUserName(string username);
-/*        Task<User> GetUserByUsernamePasswordAsync(string username, string password);*/
-        /*public Task DeleteUserAsync(int id);*/
+        Task<int> VerifyEmail(string token);
+        Task<int> ForgotPassword(string email);
+        Task<int> ResetPassword(string token, string password);
     }
 }

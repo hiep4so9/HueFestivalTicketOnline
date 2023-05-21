@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using HueFestivalTicketOnline.Data;
-using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using System.Security.Claims;
+using HueFestivalTicketOnline.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Configuration;
+using AutoMapper;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -20,10 +15,14 @@ namespace HueFestivalTicketOnline.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
+        private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserRepository repo)
+        public UsersController(IUserRepository repo, IConfiguration configuration, IMapper mapper)
         {
             _userRepo = repo;
+            _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -72,63 +71,95 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        /*        [HttpDelete("{id}")]
-                public async Task<IActionResult> DeleteUser([FromRoute] int id)
-                {
-                    await _userRepo.DeleteUserAsync(id);
-                    return Ok();
-                }*/
-
-/*        [HttpPost("login")]
-        public async Task<IActionResult> Login(string username, string password)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string userName, string password)
         {
-            if (!await _userRepo.CheckUserName(username))
+            if (!await _userRepo.CheckUserName(userName))
             {
                 return NotFound("username not found");
             }
-            var user = await _userRepo.GetUserByUsernamePasswordAsync(username, password);
-            if (user != null)
+            try
             {
-                string token = CreateToken(user);
 
-                return Ok(new ApiResponse
+                var user = await _userRepo.Login(userName, password);
+/*                if (userName != user.username)
                 {
-                    Message = "Login success",
-                    Data = token,
-                    Success = true,
+                    return BadRequest("User not found.");
+                }*/
+                
+                if (password != user.password)
+                {
+                    return BadRequest("Wrong password.");
+                }
 
-                });
+
+                if (user != null)
+                {
+                    string token = CreateToken(user);
+                    return Ok(token);
+                }
+
+                return Ok(user);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+
+        private string CreateToken(UserDTO? user)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.username),
+/*                new Claim(ClaimTypes.Role, "Admin")
+*/            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (await _userRepo.ForgotPassword(email) != -1)
+            {
+                return Ok();
+
             }
             else
             {
-                return NotFound("password wrong");
+                return BadRequest();
             }
 
         }
 
-        private string CreateToken(User user)
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
         {
-            List<Claim> claims = new List<Claim>{
-            new Claim(ClaimTypes.Name, user.username)
-        };
-            var secretKey = "g4gvaPfOulR6bdI6KNL5ikcqbGc7Ouq4";
 
-            if (secretKey != null)
+            if (await _userRepo.ResetPassword(request.Token, request.Password) != -1)
             {
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+                return Ok("Password successfully reset.");
 
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-                var token = new JwtSecurityToken(
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(7),
-                    signingCredentials: creds
-                );
-
-                var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-                return jwt;
             }
-            return null;*/
-/*
-        }*/
+            else
+            {
+                return BadRequest();
+            }
+
+        }
     }
 }

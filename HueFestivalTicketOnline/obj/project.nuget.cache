@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8QPLsQed+qK6Fw1lk19FKQjgy1LfiuhqogPaGyv9Gu4hMF6J97mLtXUNZI87qEmFBFsg/eHKF6AmUPFMRhj0dQ==",
+  "dgSpecHash": "2c+8e8LmJB8CMQfyL7OVSMiHBhJ7B7xfOryNUmRT/jD51yx+9Qzuyfy0SFzJ10wmrQ7WAyBY4zTkwTWSIzgiyw==",
   "success": true,
   "projectFilePath": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\HueFestivalTicketOnline.csproj",
   "expectedPackageFiles": [
@@ -169,7 +169,7 @@
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.cng\\5.0.0\\system.security.cryptography.cng.5.0.0.nupkg.sha512",
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.csp\\4.3.0\\system.security.cryptography.csp.4.3.0.nupkg.sha512",
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.encoding\\4.3.0\\system.security.cryptography.encoding.4.3.0.nupkg.sha512",
-    "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.openssl\\5.0.0\\system.security.cryptography.openssl.5.0.0.nupkg.sha512",
+    "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.openssl\\4.3.0\\system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.pkcs\\5.0.0\\system.security.cryptography.pkcs.5.0.0.nupkg.sha512",
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\hiep4\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",

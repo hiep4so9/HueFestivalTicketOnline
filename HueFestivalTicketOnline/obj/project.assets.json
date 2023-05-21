@@ -3305,23 +3305,31 @@
           }
         }
       },
-      "System.Security.Cryptography.OpenSsl/5.0.0": {
+      "System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "dependencies": {
-          "System.Formats.Asn1": "5.0.0"
+          "System.Collections": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Numerics": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.Encoding": "4.3.0",
+          "System.Security.Cryptography.Primitives": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll": {
-            "related": ".xml"
-          }
+          "ref/netstandard1.6/_._": {}
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard1.6/System.Security.Cryptography.OpenSsl.dll": {}
         },
         "runtimeTargets": {
-          "runtimes/unix/lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll": {
+          "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.OpenSsl.dll": {
             "assetType": "runtime",
             "rid": "unix"
           }
@@ -9652,44 +9660,20 @@
         "system.security.cryptography.encoding.nuspec"
       ]
     },
-    "System.Security.Cryptography.OpenSsl/5.0.0": {
-      "sha512": "D3aDrPOPBORUl6V/WJ2AtN3Ae48aSH0W7yChBIecvu1lyoAhopPORmMpNTjv5/Kay7Z+h3KXpfbvteIm7x7miA==",
+    "System.Security.Cryptography.OpenSsl/4.3.0": {
+      "sha512": "h4CEgOgv5PKVF/HwaHzJRiVboL2THYCou97zpmhjghx5frc7fIvlkY1jL+lnIQyChrJDMNEXS6r7byGif8Cy4w==",
       "type": "package",
-      "path": "system.security.cryptography.openssl/5.0.0",
+      "path": "system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Security.Cryptography.OpenSsl.dll",
-        "lib/net461/System.Security.Cryptography.OpenSsl.xml",
-        "lib/netcoreapp2.1/System.Security.Cryptography.OpenSsl.dll",
-        "lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll",
-        "lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.xml",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
         "lib/netstandard1.6/System.Security.Cryptography.OpenSsl.dll",
-        "lib/netstandard2.0/System.Security.Cryptography.OpenSsl.dll",
-        "lib/netstandard2.0/System.Security.Cryptography.OpenSsl.xml",
-        "ref/net461/System.Security.Cryptography.OpenSsl.dll",
-        "ref/net461/System.Security.Cryptography.OpenSsl.xml",
-        "ref/netcoreapp2.0/System.Security.Cryptography.OpenSsl.dll",
-        "ref/netcoreapp2.0/System.Security.Cryptography.OpenSsl.xml",
-        "ref/netcoreapp2.1/System.Security.Cryptography.OpenSsl.dll",
-        "ref/netcoreapp2.1/System.Security.Cryptography.OpenSsl.xml",
-        "ref/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll",
-        "ref/netcoreapp3.0/System.Security.Cryptography.OpenSsl.xml",
         "ref/netstandard1.6/System.Security.Cryptography.OpenSsl.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.OpenSsl.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.OpenSsl.xml",
-        "runtimes/unix/lib/netcoreapp2.0/System.Security.Cryptography.OpenSsl.dll",
-        "runtimes/unix/lib/netcoreapp2.1/System.Security.Cryptography.OpenSsl.dll",
-        "runtimes/unix/lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.dll",
-        "runtimes/unix/lib/netcoreapp3.0/System.Security.Cryptography.OpenSsl.xml",
         "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.OpenSsl.dll",
-        "system.security.cryptography.openssl.5.0.0.nupkg.sha512",
-        "system.security.cryptography.openssl.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+        "system.security.cryptography.openssl.nuspec"
       ]
     },
     "System.Security.Cryptography.Pkcs/5.0.0": {
@@ -10712,14 +10696,14 @@
     "net6.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.16",
+      "Microsoft.EntityFrameworkCore >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.16",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.16",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.13",
       "Portable.BouncyCastle >= 1.9.0",
       "Swashbuckle.AspNetCore >= 6.5.0",
-      "Swashbuckle.AspNetCore.Filters >= 7.0.6",
-      "System.Security.Cryptography.OpenSsl >= 5.0.0"
+      "Swashbuckle.AspNetCore.Filters >= 7.0.6"
     ]
   },
   "packageFolders": {
@@ -10774,6 +10758,10 @@
             "target": "Package",
             "version": "[6.0.16, )"
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[6.0.16, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -10805,10 +10793,6 @@
           "Swashbuckle.AspNetCore.Filters": {
             "target": "Package",
             "version": "[7.0.6, )"
-          },
-          "System.Security.Cryptography.OpenSsl": {
-            "target": "Package",
-            "version": "[5.0.0, )"
           }
         },
         "imports": [

@@ -26,7 +26,6 @@ F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swas
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
-F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.Drawing.Common.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.Runtime.Caching.dll
@@ -277,3 +276,4 @@ F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Scru
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+F:\ThucTap\HueFestivalTicketOnline\HueFestivalTicketOnline\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
