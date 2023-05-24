@@ -61,7 +61,7 @@ builder.Services.AddScoped<IEventImageRepository, EventImageRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
-
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 
 
 

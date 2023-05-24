@@ -11,11 +11,13 @@ namespace HueFestivalTicketOnline.Repositories
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IEmailRepository _emailRepository;
 
-        public UserRepository(DataContext context, IMapper mapper) 
+        public UserRepository(DataContext context, IMapper mapper, IEmailRepository emailRepository) 
         {
             _context = context;
             _mapper = mapper;
+            _emailRepository = emailRepository;
         }
         public async Task<int> AddUserAsync(UserDTO model)
         {
@@ -104,11 +106,21 @@ namespace HueFestivalTicketOnline.Repositories
             user.PasswordResetToken = jwtHandler.CreateRandomToken();
             user.ResetTokenExpries = DateTime.Now.AddDays(1);
             await _context.SaveChangesAsync();
+            var sendEmail = new EmailDTO
+            {
+                To = email,
+                Subject = "Reset password link",
+                Body = "<a target=" + "_blank" + " href=" + "http://localhost:7254/api/Users/reset-password/" + user.PasswordResetToken + ">CLICK HERE</a>"
+
+            };
+            await _emailRepository.SendEmailAsync(sendEmail);
+
             return 1;
         }
 
         public async Task<int> ResetPassword(string token, string password)
         {
+            var u = await _context.Users.FirstOrDefaultAsync(u => u.username == "hiep");
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PasswordResetToken == token);
             if (user == null || user.ResetTokenExpries < DateTime.Now)
             {

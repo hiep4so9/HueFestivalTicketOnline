@@ -136,7 +136,7 @@ namespace HueFestivalTicketOnline.Controllers
         {
             if (await _userRepo.ForgotPassword(email) != -1)
             {
-                return Ok();
+                return Ok("success");
 
             }
             else
