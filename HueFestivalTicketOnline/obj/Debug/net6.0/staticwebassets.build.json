@@ -1,11 +1,54 @@
 {
   "Version": 1,
-  "Hash": "m/tvpEiMRaKPlOd4F2xbccvkKEl+cLr7zrTkiSPqRpU=",
+  "Hash": "lGtOAVJFbae3BEWVvxs5UfIwdt0vOMRwuxb3DgfOI24=",
   "Source": "HueFestivalTicketOnline",
   "BasePath": "_content/HueFestivalTicketOnline",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "HueFestivalTicketOnline\\wwwroot",
+      "Source": "HueFestivalTicketOnline",
+      "ContentRoot": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\",
+      "BasePath": "_content/HueFestivalTicketOnline",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\Images\\6d3a9750-a56f-4792-aac0-00c4dfa02505qrcode.png",
+      "SourceId": "HueFestivalTicketOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\",
+      "BasePath": "_content/HueFestivalTicketOnline",
+      "RelativePath": "Images/6d3a9750-a56f-4792-aac0-00c4dfa02505qrcode.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\6d3a9750-a56f-4792-aac0-00c4dfa02505qrcode.png"
+    },
+    {
+      "Identity": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\Images\\c8668cbc-bd5f-4869-a36e-c78741aacb6da.png",
+      "SourceId": "HueFestivalTicketOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\",
+      "BasePath": "_content/HueFestivalTicketOnline",
+      "RelativePath": "Images/c8668cbc-bd5f-4869-a36e-c78741aacb6da.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\c8668cbc-bd5f-4869-a36e-c78741aacb6da.png"
+    }
+  ]
 }

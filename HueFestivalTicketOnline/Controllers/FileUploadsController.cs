@@ -20,16 +20,16 @@ namespace HueFestivalTicketOnline.Controllers
         {
             try
             {
-                if (fileUpload.files.Length > 0) 
+                if (fileUpload.Files.Length > 0) 
                 {
                     string path = _webHostEnvironment.WebRootPath + "\\uploads";
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + fileUpload.files.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + fileUpload.Files.FileName))
                     {
-                        fileUpload.files.CopyTo(fileStream);
+                        fileUpload.Files.CopyTo(fileStream);
                         fileStream.Flush();
                         return "Upload Done";
                     }

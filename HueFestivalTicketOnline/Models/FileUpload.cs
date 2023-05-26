@@ -2,6 +2,7 @@
 {
     public class FileUpload
     {
-        public IFormFile? files { get; set; }
+        public IFormFile? Files { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

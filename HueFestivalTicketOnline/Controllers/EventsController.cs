@@ -1,5 +1,6 @@
 ﻿using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace HueFestivalTicketOnline.Controllers
             _eventRepo = repo;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllEvents()
         {
             try
@@ -29,14 +30,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetEventById(int id)
         {
             var _event = await _eventRepo.GetEventAsync(id);
             return _event == null ? NotFound() : Ok(_event);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> AddNewEvent(EventDTO model)
         {
             try
@@ -51,7 +52,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateEvent(int id, [FromBody] EventDTO model)
         {
             if (id != model.eventID)
@@ -62,7 +63,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteEvent([FromRoute] int id)
         {
             await _eventRepo.DeleteEventAsync(id);

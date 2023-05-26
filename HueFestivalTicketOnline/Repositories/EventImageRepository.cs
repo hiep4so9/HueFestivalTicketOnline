@@ -47,6 +47,7 @@ namespace HueFestivalTicketOnline.Repositories
             return _mapper.Map<EventImageDTO>(EventImages);
         }
 
+
         public async Task UpdateEventImageAsync(int id, EventImageDTO model)
         {
             if (id == model.eventImageID)

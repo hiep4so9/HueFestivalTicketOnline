@@ -1,5 +1,6 @@
 ﻿using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace HueFestivalTicketOnline.Controllers
             _customerRepo = repo;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllCustomers()
         {
             try
@@ -29,14 +30,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetCustomerById(int id)
         {
             var customer = await _customerRepo.GetCustomerAsync(id);
             return customer == null ? NotFound() : Ok(customer);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> AddNewCustomer(CustomerDTO model)
         {
             try
@@ -51,7 +52,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDTO model)
         {
             if (id != model.customerID)
@@ -62,7 +63,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id)
         {
             await _customerRepo.DeleteCustomerAsync(id);

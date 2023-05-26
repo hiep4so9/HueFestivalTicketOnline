@@ -1,6 +1,7 @@
 ﻿using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Sockets;
@@ -18,7 +19,7 @@ namespace HueFestivalTicketOnline.Controllers
             _ticketTypeRepo = repo;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize] 
         public async Task<IActionResult> GetAllTicketTypes()
         {
             try
@@ -31,14 +32,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetTicketTypeById(int id)
         {
             var ticketType = await _ticketTypeRepo.GetTicketTypeAsync(id);
             return ticketType == null ? NotFound() : Ok(ticketType);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> AddNewTicketType(TicketTypeDTO model)
         {
             try
@@ -53,7 +54,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateTicketType(int id, [FromBody] TicketTypeDTO model)
         {
             if (id != model.ticketTypeID)
@@ -64,7 +65,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteTicketType([FromRoute] int id)
         {
             await _ticketTypeRepo.DeleteTicketTypeAsync(id);

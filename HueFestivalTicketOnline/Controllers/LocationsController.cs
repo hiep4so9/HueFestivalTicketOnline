@@ -1,5 +1,6 @@
 ﻿using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Repositories.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace HueFestivalTicketOnline.Controllers
             _locationRepo = repo;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllLocations()
         {
             try
@@ -29,14 +30,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetLocationById(int id)
         {
             var location = await _locationRepo.GetLocationAsync(id);
             return location == null ? NotFound() : Ok(location);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> AddNewLocation(LocationDTO model)
         {
             try
@@ -51,7 +52,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateLocation(int id, [FromBody] LocationDTO model)
         {
             if (id != model.locationID)
@@ -62,7 +63,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteLocation([FromRoute] int id)
         {
             await _locationRepo.DeleteLocationAsync(id);
