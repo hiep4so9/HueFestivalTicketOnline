@@ -8,7 +8,7 @@ namespace HueFestivalTicketOnline.Repositories
         public async Task SendEmailAsync(EmailDTO request, string filepath = null!)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("sigurd58@ethereal.email"));
+            email.From.Add(MailboxAddress.Parse("hiep4so9@gmail.com"));
             email.To.Add(MailboxAddress.Parse(request.To));
             email.Subject = request.Subject;
 
@@ -38,8 +38,8 @@ namespace HueFestivalTicketOnline.Repositories
                 };
             }
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
-            await smtp.ConnectAsync("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync("sigurd58@ethereal.email", "NsvWSu1d7cyyBdgTch");
+            await smtp.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            await smtp.AuthenticateAsync("hiep4so9@gmail.com", "ijndbyqxenojhzcn");
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
         }

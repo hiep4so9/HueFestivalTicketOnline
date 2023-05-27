@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HueFestivalTicketOnline.Data;
+using HueFestivalTicketOnline.Helpers;
 using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Repositories.IRepository;
 using HueOnlineTicketFestival.Prototypes;
@@ -22,9 +23,20 @@ namespace HueFestivalTicketOnline.Repositories
         public async Task<int> AddUserAsync(UserDTO model)
         {
             var newUser = _mapper.Map<User>(model);
-            _context.Users!.Add(newUser);
+            if (await _context.Users.CountAsync(x => x.Email == model.Email) > 0)
+            {
+                return -1;
+            }
+            if (await _context.Users.CountAsync(x => x.username == model.username) > 0)
+            {
+                return -1;
+            }
+            var passwordHash = HashMD5.GetMD5Hash(model.password);
+            newUser.password = passwordHash;
+            newUser.isActive = true;
+            newUser.VerificationToken = jwtHandler.CreateRandomToken();
+            _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
-
             return newUser.userID;
         }
 
@@ -72,6 +84,7 @@ namespace HueFestivalTicketOnline.Repositories
             {
                 return null;
             }
+            
             return _mapper.Map<UserDTO>(user);
         }
 
@@ -94,6 +107,31 @@ namespace HueFestivalTicketOnline.Repositories
                 return -1;
             }
         }
+
+        public async Task<UserDTO> GetUserByRefreshToken(string refreshToken)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+            if (user == null)
+            {
+                return null;
+            }
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        public async Task SetRefreshToken(int userId, RefreshToken newRefreshToken)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user != null)
+            {
+                user.RefreshToken = newRefreshToken.Token;
+                user.TokenCreated = newRefreshToken.Created;
+                user.TokenExpires = newRefreshToken.Expires;
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
 
         public async Task<int> ForgotPassword(string email)
         {
@@ -126,7 +164,7 @@ namespace HueFestivalTicketOnline.Repositories
             {
                 return -1;
             }
-            string passwordHash = password;
+            string passwordHash = HashMD5.GetMD5Hash(password);
 
             user.password = passwordHash;
             user.PasswordResetToken = token;

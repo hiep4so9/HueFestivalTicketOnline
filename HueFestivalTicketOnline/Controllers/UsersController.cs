@@ -7,6 +7,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Configuration;
 using AutoMapper;
+using HueFestivalTicketOnline.Prototypes;
+using HueOnlineTicketFestival.Prototypes;
+using HueFestivalTicketOnline.Helpers;
+using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -17,12 +22,15 @@ namespace HueFestivalTicketOnline.Controllers
         private readonly IUserRepository _userRepo;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserRepository repo, IConfiguration configuration, IMapper mapper)
+
+        public UsersController(IUserRepository repo, IConfiguration configuration, IMapper mapper, ILogger<UsersController> logger)
         {
             _userRepo = repo;
             _configuration = configuration;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -45,7 +53,55 @@ namespace HueFestivalTicketOnline.Controllers
             return user == null ? NotFound() : Ok(user);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(string email, string username, string password)
+        {
+            _logger.LogInformation("Creating a new User");
+
+            try
+            {
+                var newUser = new UserDTO
+                {
+                    Email = email,
+                    username = username,
+                    password = password,
+                    VerificationToken = jwtHandler.CreateRandomToken()
+                };
+
+
+                if (await _userRepo.AddUserAsync(newUser) != -1)
+                {
+                    return Ok(new ApiResponse
+                    {
+                        Success = true,
+                        Message = "Register success",
+                        Data = CreatedAtAction(nameof(GetUserById), new { id = newUser.userID }, newUser)
+                    });
+                }
+                else
+                {
+                    return BadRequest(new ApiResponse
+                    {
+                        Success = false,
+                        Message = "Register fail:The user already exists  ",
+                        Data = null,
+                    });
+                }
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(new ApiResponse
+                {
+                    Success = false,
+                    Message = "Register fail: " + e.GetBaseException(),
+                    Data = null,
+                });
+            }
+
+        }
+
+/*        [HttpPost]
         public async Task<IActionResult> AddNewUser(UserDTO model)
         {
             try
@@ -58,7 +114,7 @@ namespace HueFestivalTicketOnline.Controllers
             {
                 return BadRequest();
             }
-        }
+        }*/
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO model)
@@ -82,20 +138,33 @@ namespace HueFestivalTicketOnline.Controllers
             {
 
                 var user = await _userRepo.Login(userName, password);
-/*                if (userName != user.username)
-                {
-                    return BadRequest("User not found.");
-                }*/
-                
-                if (password != user.password)
+
+
+                var passwordHash = HashMD5.GetMD5Hash(password);
+                if (passwordHash != user.password)
                 {
                     return BadRequest("Wrong password.");
                 }
 
+                if (user.VerifyAt == null)
+                {
+                    return BadRequest("Not verify");
+                }
 
                 if (user != null)
                 {
                     string token = CreateToken(user);
+
+                    var refreshToken = GenerateRefreshToken();
+                    var cookieOptions = new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Expires = refreshToken.Expires
+                    };
+                    Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+                    /*                    SetRefreshToken(refreshToken,user);*/
+                    await _userRepo.SetRefreshToken(user.userID, refreshToken);
+
                     return Ok(token);
                 }
 
@@ -106,7 +175,20 @@ namespace HueFestivalTicketOnline.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("verify")]
+        public async Task<IActionResult> Verify(string token)
+        {
 
+            if (await _userRepo.VerifyEmail(token) != -1)
+            {
+                return Ok("User verify");
+            }
+            else
+            {
+                return BadRequest("Invalid token");
+            }
+
+        }
 
         private string CreateToken(UserDTO? user)
         {
@@ -130,6 +212,62 @@ namespace HueFestivalTicketOnline.Controllers
 
             return jwt;
         }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<string>> RefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            var user = await _userRepo.GetUserByRefreshToken(refreshToken);
+            if (user == null)
+            {
+                return Unauthorized("Invalid Refresh Token.");
+            }
+            else if (user.TokenExpires < DateTime.Now)
+            {
+                return Unauthorized("Token expired.");
+            }
+
+            string token = CreateToken(user);
+            var newRefreshToken = GenerateRefreshToken();
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+            await _userRepo.SetRefreshToken(user.userID, newRefreshToken);
+
+            return Ok(token);
+        }
+
+        private RefreshToken GenerateRefreshToken()
+        {
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.Now.AddDays(7),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
+
+/*        private async Task SetRefreshToken(RefreshToken newRefreshToken, UserDTO user)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            user.RefreshToken = newRefreshToken.Token;
+            user.TokenCreated = newRefreshToken.Created;
+            user.TokenExpires = newRefreshToken.Expires;
+            await _userRepo.UpdateUserAsync(user.userID, user);
+        }
+*/
 
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(string email)

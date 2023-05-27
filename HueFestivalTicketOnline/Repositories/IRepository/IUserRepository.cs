@@ -14,5 +14,8 @@ namespace HueFestivalTicketOnline.Repositories.IRepository
         Task<int> VerifyEmail(string token);
         Task<int> ForgotPassword(string email);
         Task<int> ResetPassword(string token, string password);
+        Task<UserDTO> GetUserByRefreshToken(string refreshToken);
+        Task SetRefreshToken(int userId, RefreshToken newRefreshToken);
+
     }
 }

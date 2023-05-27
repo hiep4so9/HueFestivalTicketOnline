@@ -9,6 +9,42 @@
       "PackagePath": "staticwebassets\\Images\\c8668cbc-bd5f-4869-a36e-c78741aacb6da.png"
     },
     {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_0f4c585b-0f85-4d7c-952d-4663ee31ce6e.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_0f4c585b-0f85-4d7c-952d-4663ee31ce6e.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_4d55f0b6-b914-4b2a-8e13-a169b7d19c87.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_4d55f0b6-b914-4b2a-8e13-a169b7d19c87.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_74f64857-dba6-41e0-945b-a61308c71dbf.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_74f64857-dba6-41e0-945b-a61308c71dbf.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_797486ef-8db9-4754-9fa3-85917bcf848c.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_797486ef-8db9-4754-9fa3-85917bcf848c.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_9a5e7209-eb63-442d-ae81-7d1129cc54c5.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_9a5e7209-eb63-442d-ae81-7d1129cc54c5.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_9db63c00-932a-4bba-9999-f985f0585a5f.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_9db63c00-932a-4bba-9999-f985f0585a5f.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_c298bce4-6f07-4579-b1ba-b5bbbff45ed5.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_c298bce4-6f07-4579-b1ba-b5bbbff45ed5.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_cce219b1-564a-47c2-9450-21fbb8ae4801.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_cce219b1-564a-47c2-9450-21fbb8ae4801.png"
+    },
+    {
+      "Id": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_f79e9983-46f5-4fb9-9617-eb4843ded169.png",
+      "PackagePath": "staticwebassets\\QR\\qr_code_f79e9983-46f5-4fb9-9617-eb4843ded169.png"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.HueFestivalTicketOnline.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
