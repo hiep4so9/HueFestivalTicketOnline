@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using ZXing;
 using ZXing.Windows.Compatibility;
@@ -6,7 +7,7 @@ using ZXing.Windows.Compatibility;
 namespace HueFestivalTicketOnline.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class CheckinsController : ControllerBase
     {
         [HttpPost("qrcode")]

@@ -12,6 +12,7 @@ using HueOnlineTicketFestival.Prototypes;
 using HueFestivalTicketOnline.Helpers;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -33,7 +34,7 @@ namespace HueFestivalTicketOnline.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -46,7 +47,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userRepo.GetUserAsync(id);
@@ -116,7 +117,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }*/
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO model)
         {
             if (id != model.userID)

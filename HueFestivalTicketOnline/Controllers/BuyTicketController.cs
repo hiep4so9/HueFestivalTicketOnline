@@ -5,6 +5,7 @@ using System.Drawing;
 using HueFestivalTicketOnline.Repositories.IRepository;
 using QRCoder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -32,7 +33,7 @@ namespace HueFestivalTicketOnline.Controllers
 
 
         }
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> BuyTicket(string email, TicketDTO ticket)
         {
             var user = await _userRepository.GetUserAsync(ticket.userID);

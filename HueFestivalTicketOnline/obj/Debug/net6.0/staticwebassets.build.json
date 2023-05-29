@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oTNIC4Qdf3rRRCtEe7eC0rJej4pZNt5OCADJDatqHJM=",
+  "Hash": "uLDer57g6/I4nPbnaQfbtmlI/0ET8WO7CL8f9hzVmbw=",
   "Source": "HueFestivalTicketOnline",
   "BasePath": "_content/HueFestivalTicketOnline",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\QR\\qr_code_9db63c00-932a-4bba-9999-f985f0585a5f.png"
+    },
+    {
+      "Identity": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_a82d1ce5-e69f-411a-8de6-6755246431f4.png",
+      "SourceId": "HueFestivalTicketOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\",
+      "BasePath": "_content/HueFestivalTicketOnline",
+      "RelativePath": "QR/qr_code_a82d1ce5-e69f-411a-8de6-6755246431f4.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\QR\\qr_code_a82d1ce5-e69f-411a-8de6-6755246431f4.png"
     },
     {
       "Identity": "F:\\ThucTap\\HueFestivalTicketOnline\\HueFestivalTicketOnline\\wwwroot\\QR\\qr_code_c298bce4-6f07-4579-b1ba-b5bbbff45ed5.png",
