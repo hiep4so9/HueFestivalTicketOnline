@@ -35,17 +35,32 @@ namespace HueFestivalTicketOnline.Controllers
         }
 
         [HttpGet, Authorize]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(int page = 1, int pageSize = 10)
         {
             try
             {
-                return Ok(await _userRepo.GetAllUsersAsync());
+                var allUsers = await _userRepo.GetAllUsersAsync();
+                var paginatedUsers = Pagination.Paginate(allUsers, page, pageSize);
+
+                var totalUsers = allUsers.Count;
+                var totalPages = Pagination.CalculateTotalPages(totalUsers, pageSize);
+
+                var paginationInfo = new
+                {
+                    TotalUsers = totalUsers,
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalPages = totalPages
+                };
+
+                return Ok(new { Users = paginatedUsers, Pagination = paginationInfo });
             }
             catch
             {
                 return BadRequest();
             }
         }
+
 
         [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetUserById(int id)

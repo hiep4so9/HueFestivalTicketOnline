@@ -1,4 +1,5 @@
 ﻿using HueFestivalTicketOnline.Data;
+using HueFestivalTicketOnline.Helpers;
 using HueFestivalTicketOnline.Repositories.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,11 +19,25 @@ namespace HueFestivalTicketOnline.Controllers
         }
 
         [HttpGet, Authorize]
-        public async Task<IActionResult> GetAllLocations()
+        public async Task<IActionResult> GetAllLocations(int page = 1, int pageSize = 10)
         {
             try
             {
-                return Ok(await _locationRepo.GetAllLocationsAsync());
+                var allLocations = await _locationRepo.GetAllLocationsAsync();
+                var paginatedLocations = Pagination.Paginate(allLocations, page, pageSize);
+
+                var totalLocations = allLocations.Count;
+                var totalPages = Pagination.CalculateTotalPages(totalLocations, pageSize);
+
+                var paginationInfo = new
+                {
+                    TotalLocations = totalLocations,
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalPages = totalPages
+                };
+
+                return Ok(new { Locations = paginatedLocations, Pagination = paginationInfo });
             }
             catch
             {

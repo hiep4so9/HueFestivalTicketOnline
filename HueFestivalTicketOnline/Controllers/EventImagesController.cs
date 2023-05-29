@@ -1,4 +1,5 @@
 ﻿using HueFestivalTicketOnline.Data;
+using HueFestivalTicketOnline.Helpers;
 using HueFestivalTicketOnline.Models;
 using HueFestivalTicketOnline.Prototypes;
 using HueFestivalTicketOnline.Repositories.IRepository;
@@ -25,7 +26,7 @@ namespace HueFestivalTicketOnline.Controllers
         }
 
         [HttpGet, Authorize]
-        public async Task<IActionResult> GetAllEventImages()
+        public async Task<IActionResult> GetAllEventImages(int page = 1, int pageSize = 10)
         {
             _logger.LogInformation("get");
             try
@@ -39,7 +40,20 @@ namespace HueFestivalTicketOnline.Controllers
                         item.eventImageName = "http://localhost:7254/api/EventImages/get-image-by-id?id=" + item.eventImageName;
                     }
                 }
-                return eventPictures == null ? BadRequest() : Ok(eventPictures);
+                var paginatedPictures = Pagination.Paginate(eventPictures, page, pageSize);
+
+                var totalPictures = eventPictures.Count;
+                var totalPages = Pagination.CalculateTotalPages(totalPictures, pageSize);
+
+                var paginationInfo = new
+                {
+                    TotalPictures = totalPictures,
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalPages = totalPages
+                };
+
+                return Ok(new { Pictures = paginatedPictures, Pagination = paginationInfo });
             }
             catch (System.Exception e)
             {
