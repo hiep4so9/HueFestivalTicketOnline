@@ -25,7 +25,7 @@ namespace HueFestivalTicketOnline.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllEventImages(int page = 1, int pageSize = 10)
         {
             _logger.LogInformation("get");
@@ -37,7 +37,7 @@ namespace HueFestivalTicketOnline.Controllers
 
                     foreach (var item in eventPictures)
                     {
-                        item.eventImageName = "http://localhost:7254/api/EventImages/get-image-by-id?id=" + item.eventImageName;
+                        item.eventImageName = "http://localhost:7254/api/EventImages/get-image-by-id?id=" + item.eventImageID;
                     }
                 }
                 var paginatedPictures = Pagination.Paginate(eventPictures, page, pageSize);
@@ -62,18 +62,16 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("get-image-by-id"), Authorize]
+        [HttpGet("get-image-by-id"), Authorize(Roles = "User")]
         public async Task<IActionResult> GetEventImageById(int id)
         {
-            /*            var eventImage = await _eventImageRepo.GetEventImageAsync(id);
-                        return eventImage == null ? NotFound() : Ok(eventImage);*/
             var images = await _eventImageRepo.GetEventImageAsync(id);
             var image = System.IO.File.OpenRead(_webHostEnvironment.WebRootPath + "\\Images\\" + images.eventImageName);
             return File(image, "image/jpeg");
         }
 
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewEventImage(EventImageDTO model)
         {
             try
@@ -88,7 +86,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEventImage(int id, [FromBody] EventImageDTO model)
         {
             if (id != model.eventImageID)
@@ -99,14 +97,14 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEventImage([FromRoute] int id)
         {
             await _eventImageRepo.DeleteEventImageAsync(id);
             return Ok();
         }
 
-        [HttpPost("upload"), Authorize]
+        [HttpPost("upload"), Authorize(Roles = "User")]
         public async Task<IActionResult> Upload([FromForm] FileUpload obj)
         {
             if (obj.Files!.Length > 0)

@@ -1,19 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HueFestivalTicketOnline.Data;
 using HueFestivalTicketOnline.Repositories.IRepository;
-using System.Security.Claims;
-using HueFestivalTicketOnline.Models;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Configuration;
 using AutoMapper;
 using HueFestivalTicketOnline.Prototypes;
 using HueOnlineTicketFestival.Prototypes;
 using HueFestivalTicketOnline.Helpers;
-using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -31,11 +23,11 @@ namespace HueFestivalTicketOnline.Controllers
             _userRepo = repo;
             _configuration = configuration;
             _mapper = mapper;
-            _logger = logger; 
+            _logger = logger;
 
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers(int page = 1, int pageSize = 10)
         {
             try
@@ -63,7 +55,7 @@ namespace HueFestivalTicketOnline.Controllers
         }
 
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = "User")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userRepo.GetUserAsync(id);
@@ -119,7 +111,7 @@ namespace HueFestivalTicketOnline.Controllers
         }
 
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO model)
         {
             if (id != model.userID)

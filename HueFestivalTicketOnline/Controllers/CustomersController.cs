@@ -18,7 +18,7 @@ namespace HueFestivalTicketOnline.Controllers
             _customerRepo = repo;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllCustomers(int page = 1, int pageSize = 10)
         {
             try
@@ -45,7 +45,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = "User")]
         public async Task<IActionResult> GetCustomerById(int id)
         {
             var customer = await _customerRepo.GetCustomerAsync(id);
@@ -67,7 +67,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDTO model)
         {
             if (id != model.customerID)
@@ -78,7 +78,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id)
         {
             await _customerRepo.DeleteCustomerAsync(id);

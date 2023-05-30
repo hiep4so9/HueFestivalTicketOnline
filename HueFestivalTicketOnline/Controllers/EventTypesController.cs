@@ -18,7 +18,7 @@ namespace HueFestivalTicketOnline.Controllers
             _eventTypeRepo = repo;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllEventTypes(int page = 1, int pageSize = 10)
         {
             try
@@ -45,14 +45,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = "User")]
         public async Task<IActionResult> GetEventTypeById(int id)
         {
             var eventType = await _eventTypeRepo.GetEventTypeAsync(id);
             return eventType == null ? NotFound() : Ok(eventType);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewEventType(EventTypeDTO model)
         {
             try
@@ -67,7 +67,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEventType(int id, [FromBody] EventTypeDTO model)
         {
             if (id != model.eventTypeID)
@@ -78,7 +78,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEventType([FromRoute] int id)
         {
             await _eventTypeRepo.DeleteEventTypeAsync(id);

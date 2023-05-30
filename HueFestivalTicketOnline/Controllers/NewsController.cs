@@ -46,14 +46,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = "User")]
         public async Task<IActionResult> GetNewsById(int id)
         {
             var news = await _newsRepo.GetNewsAsync(id);
             return news == null ? NotFound() : Ok(news);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewNews(NewsDTO model)
         {
             try
@@ -68,7 +68,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateNews(int id, [FromBody] NewsDTO model)
         {
             if (id != model.newsID)
@@ -79,7 +79,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNews([FromRoute] int id)
         {
             await _newsRepo.DeleteNewsAsync(id);

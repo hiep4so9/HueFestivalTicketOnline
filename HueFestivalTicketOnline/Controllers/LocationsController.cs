@@ -18,7 +18,7 @@ namespace HueFestivalTicketOnline.Controllers
             _locationRepo = repo;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllLocations(int page = 1, int pageSize = 10)
         {
             try
@@ -45,14 +45,14 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetLocationById(int id)
         {
             var location = await _locationRepo.GetLocationAsync(id);
             return location == null ? NotFound() : Ok(location);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewLocation(LocationDTO model)
         {
             try
@@ -67,7 +67,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateLocation(int id, [FromBody] LocationDTO model)
         {
             if (id != model.locationID)
@@ -78,7 +78,7 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteLocation([FromRoute] int id)
         {
             await _locationRepo.DeleteLocationAsync(id);
