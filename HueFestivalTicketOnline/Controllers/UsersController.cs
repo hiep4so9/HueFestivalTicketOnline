@@ -13,6 +13,7 @@ using HueFestivalTicketOnline.Helpers;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace HueFestivalTicketOnline.Controllers
 {
@@ -25,13 +26,13 @@ namespace HueFestivalTicketOnline.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<UsersController> _logger;
 
-
         public UsersController(IUserRepository repo, IConfiguration configuration, IMapper mapper, ILogger<UsersController> logger)
         {
             _userRepo = repo;
             _configuration = configuration;
             _mapper = mapper;
-            _logger = logger;
+            _logger = logger; 
+
         }
 
         [HttpGet, Authorize]
@@ -117,20 +118,6 @@ namespace HueFestivalTicketOnline.Controllers
 
         }
 
-/*        [HttpPost]
-        public async Task<IActionResult> AddNewUser(UserDTO model)
-        {
-            try
-            {
-                var newUserId = await _userRepo.AddUserAsync(model);
-                var user = await _userRepo.GetUserAsync(newUserId);
-                return user == null ? NotFound() : Ok(user);
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }*/
 
         [HttpPut("{id}"), Authorize]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO model)
@@ -146,6 +133,8 @@ namespace HueFestivalTicketOnline.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(string userName, string password)
         {
+            GenerateToken tokenGenerator = new GenerateToken(_configuration);
+
             if (!await _userRepo.CheckUserName(userName))
             {
                 return NotFound("username not found");
@@ -169,9 +158,9 @@ namespace HueFestivalTicketOnline.Controllers
 
                 if (user != null)
                 {
-                    string token = CreateToken(user);
+                    string token = tokenGenerator.CreateToken(user);
 
-                    var refreshToken = GenerateRefreshToken();
+                    var refreshToken = GenerateRefreshToken.CreateRefreshToken();
                     var cookieOptions = new CookieOptions
                     {
                         HttpOnly = true,
@@ -206,32 +195,10 @@ namespace HueFestivalTicketOnline.Controllers
 
         }
 
-        private string CreateToken(UserDTO? user)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.username),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds);
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
-        }
-
         [HttpPost("refresh-token")]
         public async Task<ActionResult<string>> RefreshToken()
         {
+            GenerateToken tokenGenerator = new GenerateToken(_configuration);
             var refreshToken = Request.Cookies["refreshToken"];
 
             var user = await _userRepo.GetUserByRefreshToken(refreshToken);
@@ -244,8 +211,8 @@ namespace HueFestivalTicketOnline.Controllers
                 return Unauthorized("Token expired.");
             }
 
-            string token = CreateToken(user);
-            var newRefreshToken = GenerateRefreshToken();
+            string token = tokenGenerator.CreateToken(user);
+            var newRefreshToken = GenerateRefreshToken.CreateRefreshToken();
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
@@ -257,33 +224,6 @@ namespace HueFestivalTicketOnline.Controllers
             return Ok(token);
         }
 
-        private RefreshToken GenerateRefreshToken()
-        {
-            var refreshToken = new RefreshToken
-            {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddDays(7),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
-        }
-
-/*        private async Task SetRefreshToken(RefreshToken newRefreshToken, UserDTO user)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = newRefreshToken.Expires
-            };
-            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
-
-            user.RefreshToken = newRefreshToken.Token;
-            user.TokenCreated = newRefreshToken.Created;
-            user.TokenExpires = newRefreshToken.Expires;
-            await _userRepo.UpdateUserAsync(user.userID, user);
-        }
-*/
 
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(string email)
