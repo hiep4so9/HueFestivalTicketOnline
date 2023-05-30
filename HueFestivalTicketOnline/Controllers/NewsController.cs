@@ -46,7 +46,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize(Roles = "User")]
+        [HttpGet("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetNewsById(int id)
         {
             var news = await _newsRepo.GetNewsAsync(id);

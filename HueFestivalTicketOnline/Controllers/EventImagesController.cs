@@ -62,7 +62,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("get-image-by-id"), Authorize(Roles = "User")]
+        [HttpGet("get-image-by-id"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetEventImageById(int id)
         {
             var images = await _eventImageRepo.GetEventImageAsync(id);

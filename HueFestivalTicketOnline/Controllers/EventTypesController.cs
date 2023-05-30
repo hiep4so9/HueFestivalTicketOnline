@@ -45,7 +45,7 @@ namespace HueFestivalTicketOnline.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize(Roles = "User")]
+        [HttpGet("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetEventTypeById(int id)
         {
             var eventType = await _eventTypeRepo.GetEventTypeAsync(id);
